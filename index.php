@@ -13,6 +13,10 @@
 <body>
 	<h1>To Do List</h1>
 	<form action="" method="post" id="items-list">
+		<label>
+			Search:
+			<input type="search" id="search">
+		</label>
 		<h2>A faire</h2>
 		<div class="block-afaire">
 		<?php getItems(true); ?>

@@ -1,5 +1,5 @@
 const items = document.querySelectorAll('#items-list label[draggable="true"]');
-console.log(items);
+//console.log(items);
 
 let dragElement = null;
 

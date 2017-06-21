@@ -18,6 +18,7 @@
 			$item = sanitization($_POST['item']);
 			$date = sanitization($_POST['date']);
 			$time = sanitization($_POST['time']);
+			
 			if(!empty($date) && !empty($time)) {
 				$deadline = $date.' '.$time.'00:00';
 			} elseif (!empty($date)) {
