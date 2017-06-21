@@ -75,7 +75,7 @@ function addDeadEffect(el) {
 	if(el.parentNode.parentNode === afaire && Date.now() > new Date(el.dataset.deadline)) {
 		el.parentNode.classList.add('dead');
 		let id = el.getAttribute('name');
-		console.log(id);
+
 		let li = document.createElement('li');
 		li.id = id;
 		li.innerText = el.parentNode.innerText;
