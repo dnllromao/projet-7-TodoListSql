@@ -91,5 +91,3 @@
 		    	echo "error";
 		    }
 	}
-
-	and if
