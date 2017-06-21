@@ -15,17 +15,9 @@
 			}
 
 			$item = sanitization($_POST['item']);
-
-			// if(in_array($item, $arr_data)) {
-			// 	echo 'Item already exists';
-			// 	return;
-			// }
-
-			$req = $db->prepare('INSERT INTO todos(task, active) VALUES(?, true)');
+			$req = $db->prepare('INSERT INTO todos(task, active, ord) SELECT ?, true, 1 + COUNT(*) FROM todos WHERE active = true');
 			$req->execute(array($item));
 			$req->closeCursor();
-
-		 //    prepareDataToDisplay();
 
 			break;
 		
@@ -33,19 +25,38 @@
 			echo 'enregistrer';
 
 			foreach ($_POST as $id => $bool) {
-				if( is_int($id) && !$bool) {
-					// $bool = (bool) $bool;
-					// var_dump($bool);
-					$req = $db->prepare('UPDATE todos SET active = ? WHERE id = ?');
-					$req->execute(array($bool,$id));
+				if( is_int($id)) {
+
+					$req = $db->prepare('UPDATE todos SET ord = ord - 1 WHERE active = :active AND ord > (SELECT ord FROM (SELECT * FROM todos WHERE id = :id) AS t)');
+					$req->execute(array(
+						'active' => !$bool,
+						'id' => $id
+						));
 					$req->closeCursor();
+
+					$req = $db->prepare('UPDATE todos SET active = :active , ord = 1 + (SELECT * FROM (SELECT COUNT(*) FROM todos WHERE active = :active) AS t) WHERE id = :id');
+					$req->execute(array(
+						'active' => $bool,
+						'id' => $id
+						));
+					$req->closeCursor();
+
 				}
 			}
 
-			// overWriteJson($arr_data);
+			break;
+		case 'reorganiser':
 
-		 //    prepareDataToDisplay();
-
+			foreach ($_POST as $id => $ord) {
+				if( is_int($id)) {
+					$req = $db->prepare('UPDATE todos SET ord = :ord WHERE id = :id');
+					$req->execute(array(
+						'ord' => $ord,
+						'id' => $id
+						));
+					$req->closeCursor();
+				}
+			}
 			break;
 	}
 

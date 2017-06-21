@@ -17,7 +17,7 @@
 		<div class="block-afaire">
 		<?php getItems(true); ?>
 		</div>
-		<input type="submit" value="enregistrer" name="action">
+		<!--<input type="submit" value="enregistrer" name="action">-->
 		<h2>Archive</h2>
 		<div class="block-archive">
 		<?php getItems(false); ?>
@@ -31,7 +31,7 @@
 		</label>
 		<input type="submit" value="ajouter" name="action">
 	</form>
-	<!--<script src="app.js"></script>
-	<script src="drag.js"></script>-->
+	<script src="app.js"></script>
+	<script src="drag.js"></script>
 </body>
 </html>
