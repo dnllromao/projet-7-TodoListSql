@@ -1,13 +1,31 @@
 const form  =  document.getElementById('items-list');
-const inputs = form.querySelectorAll('input');
+const inputs = form.querySelectorAll('input[type="checkbox"]');
 const afaire = form.querySelector('.block-afaire');
 const archive = form.querySelector('.block-archive');
 const alert = document.getElementById('alert');
+const search = document.getElementById('search');
 
 inputs.forEach(function(input, index, arr) {
 	addChangeEffect(input);
 	addDeadEffect(input);
 });
+
+search.addEventListener('keyup', function(e) {
+	searchItems(e);
+});
+
+function searchItems(e) {
+
+	inputs.forEach(function(el, index) {
+		let match = new RegExp(e.target.value).test(el.parentNode.innerText);
+
+		if(match) {
+			el.parentNode.style.display = 'block';
+		} else {
+			el.parentNode.style.display = 'none';
+		}
+	});
+}
 
 function addChangeEffect (el) {
 
@@ -26,7 +44,6 @@ function addChangeEffect (el) {
 				el.parentNode.classList.remove('dead');
 				isListEmpty();
 				alert.removeChild(document.getElementById(index));
-				
 			}
 
 			
