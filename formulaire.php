@@ -14,9 +14,22 @@
 				return;
 			}
 
+			// Il faut sanitize tout ça
 			$item = sanitization($_POST['item']);
-			$req = $db->prepare('INSERT INTO todos(task, active, ord) SELECT ?, true, 1 + COUNT(*) FROM todos WHERE active = true');
-			$req->execute(array($item));
+			$date = sanitization($_POST['date']);
+			$time = sanitization($_POST['time']);
+			if(!empty($date) && !empty($time)) {
+				$deadline = $date.' '.$time.'00:00';
+			} elseif (!empty($date)) {
+				$deadline = $date.' 00:00';
+			} else {
+				$deadline = null;
+			}
+
+			$req = $db->prepare('INSERT INTO todos(task, active, deadline, ord) SELECT ?, true, ?, 1 + COUNT(*) FROM todos WHERE active = true');
+			$req->execute(array(
+				$item, $deadline
+				));
 			$req->closeCursor();
 
 			break;

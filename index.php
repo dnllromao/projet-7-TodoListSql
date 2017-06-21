@@ -26,11 +26,23 @@
 	<h3>Ajouter une tâche</h3>
 	<form action="" method="post">
 		<label>
-			La tâche à efectuer
+			La tâche à efectuer<br/>
 			<textarea name="item" id="" cols="30" rows="10"></textarea>
+		</label>
+		<label>
+			Echeance date<br/>
+			<input type="date" name="date">
+		</label>
+		<label>
+			time<br/>
+			<input type="time" name="time">
 		</label>
 		<input type="submit" value="ajouter" name="action">
 	</form>
+	<div class="alert-block">
+		<p>Les todos suivantes ont dépassé leur date d'échance:</p>
+		<ul id="alert"></ul>
+	</div>
 	<script src="app.js"></script>
 	<script src="drag.js"></script>
 </body>

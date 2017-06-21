@@ -1,3 +1,20 @@
+label {
+	display: block;
+}
+
 .done {
 	text-decoration: line-through;
+}
+
+.dead {
+	color: red;
+}
+
+.alert-block {
+	border: 1px solid black;
+	position: absolute;
+	right: 1em;
+	top: 1em;
+	max-width: 14em;
+	opacity: 0;
 }
