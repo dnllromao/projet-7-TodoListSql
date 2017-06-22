@@ -72,14 +72,11 @@ function dropHandler(e) {
 	// register new order
 	registerOrder(sibling,direction);
 	//e.preventDefault();
+	origAfaire = afaire.querySelectorAll('input');
 }
 
 function getIndex (el) {
-	// console.log('el');
-	// console.log(el.parentNode);
 	const children = Array.from(el.parentNode.childNodes);
-	// console.log('children');
-	// console.log(children);
 	return children.indexOf(el);
 }
 

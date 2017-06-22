@@ -17,6 +17,21 @@
 			Search:
 			<input type="search" id="search">
 		</label>
+		<label>
+			Filtre:
+			<select id="filtre">
+				<option value="">---</option>
+				<option value="date">Date d'échance</option>
+				<option value="nom">Nom</option>
+			</select>
+		</label>
+		<label>
+			Ordre:
+			<select id="ordre">
+				<option value="asc">ASC</option>
+				<option value="desc">DESc</option>
+			</select>
+		</label>
 		<h2>A faire</h2>
 		<div class="block-afaire">
 		<?php getItems(true); ?>

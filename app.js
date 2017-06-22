@@ -4,6 +4,8 @@ const afaire = form.querySelector('.block-afaire');
 const archive = form.querySelector('.block-archive');
 const alert = document.getElementById('alert');
 const search = document.getElementById('search');
+const filtre = document.getElementById('filtre');
+const ordre = document.getElementById('ordre');
 
 inputs.forEach(function(input, index, arr) {
 	addChangeEffect(input);
@@ -13,6 +15,99 @@ inputs.forEach(function(input, index, arr) {
 search.addEventListener('keyup', function(e) {
 	searchItems(e);
 });
+
+
+let origAfaire = afaire.querySelectorAll('input');
+
+filtre.addEventListener('change', function(e) {
+	trierItems();
+});
+
+ordre.addEventListener('change', function(e) {
+	trierItems();
+});
+
+function trierItems() {
+	console.dir(filtre.value);
+	console.log([...afaire.querySelectorAll('input')]);
+
+	let sortAfaire;
+
+	switch (filtre.value) {
+	  case 'date':
+
+	  	console.log(ordre.value);
+
+	  	if(ordre.value == "asc") {
+	  		sortAfaire = [...afaire.querySelectorAll('input')].sort(function(a, b) {
+	  			// manage empty values, quite dirty
+	  			if(a.dataset.deadline.length == 0) {
+	  				console.log(1);
+	  				return 1;
+	  			}
+
+	  			if(b.dataset.deadline.length == 0) {
+	  				console.log(-1);
+	  				return -1;
+	  			}
+
+	  			if(a.dataset.deadline > b.dataset.deadline) {
+	  				console.log(1);
+	  				return 1;
+	  			} else if (a.dataset.deadline < b.dataset.deadline) {
+	  				console.log(-1);
+	  				return -1;
+	  			}
+	  		});
+	  	} else {
+	  		sortAfaire = [...afaire.querySelectorAll('input')].sort(function(a, b) {
+	  			// manange empty values, quite dirty
+	  			if(a.dataset.deadline.length == 0) {
+	  				console.log(-1);
+	  				return -1;
+	  			}
+
+	  			if(b.dataset.deadline.length == 0) {
+	  				console.log(1);
+	  				return 1;
+	  			}
+
+	  			if(a.dataset.deadline > b.dataset.deadline) {
+	  				console.log(-1);
+	  				return -1;
+	  			} else if (a.dataset.deadline < b.dataset.deadline) {
+	  				console.log(1);
+	  				return 1;
+	  			}
+	  		});
+	  	}
+
+	  	
+
+	    break;
+	  case 'nom':
+	  	sortAfaire = [...afaire.querySelectorAll('input')].sort(function(a, b) {
+
+	  		if(a.parentNode.innerText > b.parentNode.innerText) {
+	  			console.log(1);
+	  			return 1;
+	  		} else {
+	  			console.log(-1);
+	  			return -1;
+	  		}
+	  	});
+
+	    break;
+	    default:
+	    	console.log('default');
+	        sortAfaire = original;
+	}
+
+	afaire.innerHTML = '';
+	sortAfaire.forEach(function(el) {
+		afaire.appendChild(el.parentNode);
+	});
+}
 
 function searchItems(e) {
 
@@ -55,6 +150,8 @@ function addChangeEffect (el) {
 			addDeadEffect(this);
 
 		}
+
+		origAfaire = afaire.querySelectorAll('input');
 	});
 }
 
